@@ -1,0 +1,158 @@
+# lear
+# Hangman
+
+# Welcome to the Hangman Game
+# This game is not made in pygame
+
+import random as rd
+
+print("\nWelcome User to the Hangman game!\n")
+
+hanger_1 = """
+         __________
+        ||
+        ||
+        ||
+        ||
+        ||
+        ||
+        ``````
+        """
+hanger_2 = """
+         __________
+        || /
+        ||/
+        ||
+        ||
+        ||
+        ||
+        ``````
+        """
+hanger_3 = """
+         __________
+        || /      |
+        ||/
+        ||
+        ||
+        ||
+        ||
+        ``````
+        """
+hanger_4 = """
+         __________
+        || /      |
+        ||/       O
+        ||
+        ||
+        ||
+        ||
+        ``````
+        """
+hanger_5 = """
+         __________
+        || /      |
+        ||/       O
+        ||        !
+        ||
+        ||
+        ||
+        ``````
+        """
+hanger_6 = """
+         __________
+        || /      |
+        ||/       O
+        ||        !
+        ||       /
+        ||
+        ||
+        ``````
+        """
+hanger_7 = """
+         __________
+        || /      |
+        ||/       O
+        ||        !
+        ||       / \\
+        ||
+        ||
+        ``````
+        """
+hanger_8 = """
+         __________
+        || /      |
+        ||/      \\O
+        ||        !
+        ||       / \\
+        ||
+        ||
+        ``````
+        """
+hanger_9 = """
+         __________
+        || /      |
+        ||/      \\O/
+        ||        !
+        ||       / \\
+        ||
+        ||
+        ``````
+        """
+
+
+words = ["maintain", "furious", "clock", "people", "sense", "absolutely"]
+
+attemts = 8
+numbers = 8
+hanger = 22
+level = 1
+
+word_rd = rd.randint(0, 5)
+word_1 = words[word_rd]
+word_01 = len(word_1) * "_"
+
+levels = {
+    "hanger_1": hanger_1,
+    "hanger_2": hanger_2,
+    "hanger_3": hanger_3,
+    "hanger_4": hanger_4,
+    "hanger_5": hanger_5,
+    "hanger_6": hanger_6,
+    "hanger_7": hanger_7,
+    "hanger_8": hanger_8,
+    "hanger_9": hanger_9
+}
+
+while True:
+    if attemts == numbers:
+        print(levels[f"hanger_{level}"])
+        print(f"Guess the word : {word_01}")
+        guess = input("Guess the letter : ")
+
+    if guess in word_1:
+        indices = [i for i, c in enumerate(word_1) if c == guess]
+        word_01 = list(word_01)
+        for i in indices:
+            word_01[i] = guess
+        word_01 = "".join(word_01)
+        print(word_01)
+
+    elif guess not in word_1:
+        print("\nOops wrond letter!\n")
+        attemts -= 1
+        numbers -= 1
+        level += 1
+
+    if attemts == 0:
+        print("""
+            You have 0 chances left!
+                  You lose!
+                """)
+        break
+
+    if word_01.count("_") == 0:
+        print("""
+            Congratulations!
+            You win the game!
+            """)
+        break
